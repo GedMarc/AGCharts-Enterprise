@@ -12,7 +12,7 @@ import lombok.Setter;
         pluginName = "AG Charts Enterprise",
         pluginUniqueName = "ag-charts-enterprise",
         pluginDescription = "AG Charts Enterprise extension for JWebMP providing advanced chart types and features.",
-        pluginVersion = "10.0.0",
+        pluginVersion = "12.2.0",
         pluginCategories = "charts, graphing, data-viz, enterprise",
         pluginSubtitle = "Enterprise features for AG Charts",
         pluginSourceUrl = "https://www.ag-grid.com/charts/",
@@ -29,7 +29,9 @@ import lombok.Setter;
         pluginStatus = PluginStatus.Released
 )
 
-@TsDependency(value = "ag-charts-enterprise", version = "^10.0.0")
+@TsDependency(value = "ag-charts-enterprise", version = "^12.2.0")
+@com.jwebmp.core.base.angular.client.annotations.boot.NgBootImportReference(value = "AllEnterpriseModule", reference = "ag-grid-enterprise")
+@com.jwebmp.core.base.angular.client.annotations.boot.NgBootImportReference(value = "ModuleRegistry", reference = "ag-grid-community")
 public class AgChartsEnterprisePageConfigurator implements IPageConfigurator<AgChartsEnterprisePageConfigurator>
 {
     @Getter
