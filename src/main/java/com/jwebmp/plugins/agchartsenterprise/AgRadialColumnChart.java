@@ -8,6 +8,7 @@ import com.jwebmp.plugins.agchartsenterprise.options.axes.AgAxisLabelOrientation
 import com.jwebmp.plugins.agchartsenterprise.options.series.AgRadiusNumberAxisOptions;
 import com.jwebmp.plugins.agcharts.options.series.AgBarSeriesLabelOptions;
 import com.jwebmp.plugins.agchartsenterprise.options.series.AgRadialColumnSeriesOptions;
+import io.smallrye.mutiny.Uni;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -220,130 +221,132 @@ public class AgRadialColumnChart<J extends AgRadialColumnChart<J>> extends AgCha
     }
 
     @Override
-    public AgChartOptions<?> getInitialOptions()
+    public Uni<AgChartOptions<?>> getInitialOptions()
     {
-        // Build axes
-        AgAngleCategoryAxisOptions<?> angleAxis = new AgAngleCategoryAxisOptions<>();
-        if (anglePaddingInner != null)
-        {
-            angleAxis.setPaddingInner(anglePaddingInner);
-        }
-        if (angleGroupPaddingInner != null)
-        {
-            angleAxis.setGroupPaddingInner(angleGroupPaddingInner);
-        }
-        if (angleLabelOrientation != null)
-        {
-            AgPolarAxisLabelOptions<?> l = new AgPolarAxisLabelOptions<>().setOrientation(angleLabelOrientation);
-            angleAxis.setLabel(l);
-        }
+        return Uni.createFrom().item(() -> {
+            // Build axes
+            AgAngleCategoryAxisOptions<?> angleAxis = new AgAngleCategoryAxisOptions<>();
+            if (anglePaddingInner != null)
+            {
+                angleAxis.setPaddingInner(anglePaddingInner);
+            }
+            if (angleGroupPaddingInner != null)
+            {
+                angleAxis.setGroupPaddingInner(angleGroupPaddingInner);
+            }
+            if (angleLabelOrientation != null)
+            {
+                AgPolarAxisLabelOptions<?> l = new AgPolarAxisLabelOptions<>().setOrientation(angleLabelOrientation);
+                angleAxis.setLabel(l);
+            }
 
-        AgRadiusNumberAxisOptions<?> radiusAxis = new AgRadiusNumberAxisOptions<>();
-        if (radiusInnerRadiusRatio != null)
-        {
-            radiusAxis.setInnerRadiusRatio(radiusInnerRadiusRatio);
-        }
-        if (radiusPositionAngle != null)
-        {
-            radiusAxis.setPositionAngle(radiusPositionAngle);
-        }
-        if (radiusLabelRotation != null)
-        {
-            // Reuse polar label options for rotation setting
-            AgPolarAxisLabelOptions<?> l = new AgPolarAxisLabelOptions<>().setRotation(radiusLabelRotation);
-            radiusAxis.setLabel(l);
-        }
+            AgRadiusNumberAxisOptions<?> radiusAxis = new AgRadiusNumberAxisOptions<>();
+            if (radiusInnerRadiusRatio != null)
+            {
+                radiusAxis.setInnerRadiusRatio(radiusInnerRadiusRatio);
+            }
+            if (radiusPositionAngle != null)
+            {
+                radiusAxis.setPositionAngle(radiusPositionAngle);
+            }
+            if (radiusLabelRotation != null)
+            {
+                // Reuse polar label options for rotation setting
+                AgPolarAxisLabelOptions<?> l = new AgPolarAxisLabelOptions<>().setRotation(radiusLabelRotation);
+                radiusAxis.setLabel(l);
+            }
 
-        List<com.jwebmp.plugins.agcharts.options.axes.AgAxisBaseOptions<?>> axes = new ArrayList<>();
-        axes.add(angleAxis);
-        axes.add(radiusAxis);
+            List<com.jwebmp.plugins.agcharts.options.axes.AgAxisBaseOptions<?>> axes = new ArrayList<>();
+            axes.add(angleAxis);
+            axes.add(radiusAxis);
 
-        // Build series
-        AgRadialColumnSeriesOptions<?> series = new AgRadialColumnSeriesOptions<>()
-                .setAngleKey(angleKey)
-                .setRadiusKey(radiusKey);
-        if (angleName != null)
-        {
-            series.setAngleName(angleName);
-        }
-        if (radiusName != null)
-        {
-            series.setRadiusName(radiusName);
-        }
-        if (legendItemName != null)
-        {
-            series.setLegendItemName(legendItemName);
-        }
+            // Build series
+            AgRadialColumnSeriesOptions<?> series = new AgRadialColumnSeriesOptions<>()
+                    .setAngleKey(angleKey)
+                    .setRadiusKey(radiusKey);
+            if (angleName != null)
+            {
+                series.setAngleName(angleName);
+            }
+            if (radiusName != null)
+            {
+                series.setRadiusName(radiusName);
+            }
+            if (legendItemName != null)
+            {
+                series.setLegendItemName(legendItemName);
+            }
 
-        if (grouped != null)
-        {
-            series.setGrouped(grouped);
-        }
-        if (stacked != null)
-        {
-            series.setStacked(stacked);
-        }
-        if (stackGroup != null)
-        {
-            series.setStackGroup(stackGroup);
-        }
-        if (normalizedTo != null)
-        {
-            series.setNormalizedTo(normalizedTo);
-        }
-        if (columnWidthRatio != null)
-        {
-            series.setColumnWidthRatio(columnWidthRatio);
-        }
-        if (maxColumnWidthRatio != null)
-        {
-            series.setMaxColumnWidthRatio(maxColumnWidthRatio);
-        }
+            if (grouped != null)
+            {
+                series.setGrouped(grouped);
+            }
+            if (stacked != null)
+            {
+                series.setStacked(stacked);
+            }
+            if (stackGroup != null)
+            {
+                series.setStackGroup(stackGroup);
+            }
+            if (normalizedTo != null)
+            {
+                series.setNormalizedTo(normalizedTo);
+            }
+            if (columnWidthRatio != null)
+            {
+                series.setColumnWidthRatio(columnWidthRatio);
+            }
+            if (maxColumnWidthRatio != null)
+            {
+                series.setMaxColumnWidthRatio(maxColumnWidthRatio);
+            }
 
-        if (cornerRadius != null)
-        {
-            series.setCornerRadius(cornerRadius);
-        }
-        if (fillOpacity != null)
-        {
-            series.setFillOpacity(fillOpacity);
-        }
-        if (stroke != null)
-        {
-            series.setStroke(stroke);
-        }
-        if (strokeWidth != null)
-        {
-            series.setStrokeWidth(strokeWidth);
-        }
-        if (strokeOpacity != null)
-        {
-            series.setStrokeOpacity(strokeOpacity);
-        }
-        if (lineDash != null)
-        {
-            series.setLineDash(lineDash);
-        }
-        if (lineDashOffset != null)
-        {
-            series.setLineDashOffset(lineDashOffset);
-        }
-        if (label != null)
-        {
-            series.setLabel(label);
-        }
+            if (cornerRadius != null)
+            {
+                series.setCornerRadius(cornerRadius);
+            }
+            if (fillOpacity != null)
+            {
+                series.setFillOpacity(fillOpacity);
+            }
+            if (stroke != null)
+            {
+                series.setStroke(stroke);
+            }
+            if (strokeWidth != null)
+            {
+                series.setStrokeWidth(strokeWidth);
+            }
+            if (strokeOpacity != null)
+            {
+                series.setStrokeOpacity(strokeOpacity);
+            }
+            if (lineDash != null)
+            {
+                series.setLineDash(lineDash);
+            }
+            if (lineDashOffset != null)
+            {
+                series.setLineDashOffset(lineDashOffset);
+            }
+            if (label != null)
+            {
+                series.setLabel(label);
+            }
 
-        if (showInLegend != null)
-        {
-            series.setShowInLegend(showInLegend);
-        }
-        if (data != null)
-        {
-            series.setData(data);
-        }
+            if (showInLegend != null)
+            {
+                series.setShowInLegend(showInLegend);
+            }
+            if (data != null)
+            {
+                series.setData(data);
+            }
 
-        return new AgChartOptions<>()
-                .setAxes(axes)
-                .setSeries(java.util.List.of(series));
+            return new AgChartOptions<>()
+                    .setAxes(axes)
+                    .setSeries(java.util.List.of(series));
+        });
     }
 }

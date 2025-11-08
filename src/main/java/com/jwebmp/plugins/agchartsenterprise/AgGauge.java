@@ -132,31 +132,33 @@ public abstract class AgGauge<J extends AgGauge<J>> extends DivSimple<J> impleme
         public String getMessageDirector() {return listenerName;}
 
         @Override
-        public AjaxResponse<?> action(AjaxCall<?> call, AjaxResponse<?> response)
+        public io.smallrye.mutiny.Uni<AjaxResponse<?>> action(AjaxCall<?> call, AjaxResponse<?> response)
         {
-            try
-            {
-                actionClass = (Class<? extends AgGauge>) Class.forName(call.getClassName());
-                Object ln = call.getUnknownFields() != null ? call.getUnknownFields()
-                                                                  .get("listenerName") : null;
-                if (ln != null)
+            return io.smallrye.mutiny.Uni.createFrom().item(() -> {
+                try
                 {
-                    listenerName = ln.toString();
+                    actionClass = (Class<? extends AgGauge>) Class.forName(call.getClassName());
+                    Object ln = call.getUnknownFields() != null ? call.getUnknownFields()
+                                                                      .get("listenerName") : null;
+                    if (ln != null)
+                    {
+                        listenerName = ln.toString();
+                    }
                 }
-            }
-            catch (ClassNotFoundException e)
-            {
-                e.printStackTrace();
-            }
+                catch (ClassNotFoundException e)
+                {
+                    e.printStackTrace();
+                }
 
-            AgRadialGaugeOptions<?> initial = IGuiceContext.get(actionClass)
-                                                           .getInitialOptions();
-            if (initial == null)
-            {
-                return null;
-            }
-            response.addDataResponse(listenerName, initial);
-            return response;
+                AgRadialGaugeOptions<?> initial = IGuiceContext.get(actionClass)
+                                                               .getInitialOptions();
+                if (initial == null)
+                {
+                    return null;
+                }
+                response.addDataResponse(listenerName, initial);
+                return response;
+            });
         }
     }
 }
