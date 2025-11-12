@@ -30,8 +30,8 @@ import lombok.Setter;
 )
 
 @TsDependency(value = "ag-charts-enterprise", version = "^12.2.0")
-@com.jwebmp.core.base.angular.client.annotations.boot.NgBootImportReference(value = "AllEnterpriseModule", reference = "ag-grid-enterprise")
-@com.jwebmp.core.base.angular.client.annotations.boot.NgBootImportReference(value = "ModuleRegistry", reference = "ag-grid-community")
+@com.jwebmp.core.base.angular.client.annotations.boot.NgBootImportReference(value = "AgChartsEnterprise", reference = "ag-charts-enterprise")
+@com.jwebmp.core.base.angular.client.annotations.boot.NgBootImportReference(value = "AgChartsModule", reference = "ag-charts-angular")
 public class AgChartsEnterprisePageConfigurator implements IPageConfigurator<AgChartsEnterprisePageConfigurator>
 {
     @Getter

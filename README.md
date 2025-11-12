@@ -25,3 +25,12 @@ Documentation
 
 Progress & Plan
 - See module plan and checklist in repository issues or project tracker.
+
+
+## How to use these rules
+- See plugin rules index: rules/generative/frontend/jwebmp/agcharts-enterprise/README.md
+- Use these docs to guide generation and maintenance in host projects. Follow Forward-Only policy; do not edit generated artifacts.
+
+## Prompt Language Alignment & Glossary
+- Minimal authoritative glossary for this plugin: rules/generative/frontend/jwebmp/agcharts-enterprise/GLOSSARY.md
+- Host projects should copy only enforced aligned names and link back to the glossary.
