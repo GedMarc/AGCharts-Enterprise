@@ -154,6 +154,7 @@ Target paths: keep library-specific docs within this repo (outside any Rules Rep
      - agcharts-enterprise-integration.rules.md
      - page-configurator.rules.md
      - licensing-and-activation.rules.md
+     - java-usage-guide.rules.md
      - usage-examples.rules.md
      - troubleshooting.rules.md
 
@@ -217,6 +218,7 @@ Since registration is complete, use this prompt for:
 2) Update examples to reflect current best practices
 3) Add new usage patterns as they emerge
 4) Maintain cross-links when parent repository structure changes
+5) Keep `java-usage-guide.rules.md` aligned with implementation examples and API contracts
 
 **Version Updates:**
 1) Update version information in relevant files when releasing

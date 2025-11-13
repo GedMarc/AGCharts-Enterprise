@@ -8,7 +8,7 @@ import com.jwebmp.plugins.agchartsenterprise.options.gauge.AgRadialGaugeScale;
  * <p>
  * Provides a simple way to instantiate a gauge with value and scale min/max.
  */
-public class AgRadialGauge extends AgGauge<AgRadialGauge>
+public class AgRadialGauge<J extends AgRadialGauge<J>> extends AgGauge<J>
 {
     private Number value;
     private Number min;
@@ -22,24 +22,62 @@ public class AgRadialGauge extends AgGauge<AgRadialGauge>
         this.max = max;
     }
 
-    public AgRadialGauge setValue(Number value)
+    /**
+     * Sets the current value of the radial gauge.
+     * <p>
+     * The value should typically be within the range defined by min and max
+     * for proper visualization, though values outside this range are allowed.
+     *
+     * @param value the numeric value to display on the gauge
+     * @return this instance for method chaining
+     */
+    @SuppressWarnings("unchecked")
+    public J setValue(Number value)
     {
         this.value = value;
-        return this;
+        return (J) this;
     }
 
-    public AgRadialGauge setMin(Number min)
+    /**
+     * Sets the minimum value for the gauge scale.
+     * <p>
+     * This defines the lower bound of the gauge's scale range and affects
+     * the visualization of the gauge's scale and needle positioning.
+     *
+     * @param min the minimum value for the gauge scale
+     * @return this instance for method chaining
+     */
+    @SuppressWarnings("unchecked")
+    public J setMin(Number min)
     {
         this.min = min;
-        return this;
+        return (J) this;
     }
 
-    public AgRadialGauge setMax(Number max)
+    /**
+     * Sets the maximum value for the gauge scale.
+     * <p>
+     * This defines the upper bound of the gauge's scale range and affects
+     * the visualization of the gauge's scale and needle positioning.
+     *
+     * @param max the maximum value for the gauge scale
+     * @return this instance for method chaining
+     */
+    @SuppressWarnings("unchecked")
+    public J setMax(Number max)
     {
         this.max = max;
-        return this;
+        return (J) this;
     }
 
+    /**
+     * Gets the initial configuration options for this radial gauge.
+     * <p>
+     * Creates and returns a configured {@link AgRadialGaugeOptions} instance
+     * with the current value, min, and max settings applied to the gauge scale.
+     *
+     * @return the configured radial gauge options
+     */
     @Override
     public AgRadialGaugeOptions<?> getInitialOptions()
     {

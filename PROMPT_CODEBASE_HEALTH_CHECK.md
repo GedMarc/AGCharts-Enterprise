@@ -149,7 +149,7 @@ Use this prompt to perform a full repository health check for the AG Charts Ente
 **Inventory Scope** (Plugin-focused):
 - Plugin structure: `src/main/java/`, `src/test/java/`, `src/main/resources/`
 - Build configuration: `pom.xml`, Maven alignment with JWebMP BOM
-- Documentation: Complete rules system under `rules/generative/frontend/jwebmp/agcharts-enterprise/`
+- Documentation: Complete rules system under `rules/generative/frontend/jwebmp/agcharts-enterprise/`, including `java-usage-guide.rules.md`
 - Plugin registration: ServiceLoader discovery mechanisms
 - Angular integration: Page Configurator with @TsDependency
 
@@ -163,6 +163,7 @@ Use this prompt to perform a full repository health check for the AG Charts Ente
 **Plugin-Specific Gaps to Check**:
 - Missing Page Configurator implementation
 - Incomplete @TsDependency declarations
+- Missing or outdated `java-usage-guide.rules.md`
 - Non-CRTP API patterns
 - Missing integration with community plugin
 - Documentation link integrity
@@ -175,6 +176,7 @@ Use this prompt to perform a full repository health check for the AG Charts Ente
 - Verify ServiceLoader configuration in `META-INF/services/`
 - Check Page Configurator implementation and auto-discovery
 - Validate @TsDependency for `ag-charts-enterprise`
+- Ensure `@NgBootImportReference` imports `AgChartsEnterprise` (from `ag-charts-enterprise`) and `AgChartsModule` (from `ag-charts-angular`)
 - Confirm integration with community `agcharts` plugin
 - Verify Maven dependency structure and BOM alignment
 
@@ -205,6 +207,7 @@ Use this prompt to perform a full repository health check for the AG Charts Ente
 - Validate glossary completeness and LLM guidance
 - Ensure examples follow CRTP patterns
 - Verify troubleshooting coverage
+- Confirm `java-usage-guide.rules.md` reflects the Java-only workflow and current implementation patterns
 
 **F. Plugin Testing and Examples**
 - Unit test presence and patterns
@@ -222,12 +225,13 @@ Use this prompt to perform a full repository health check for the AG Charts Ente
 - AG Charts Enterprise Rules → Documentation/Implementation → Status → Action
 - CRTP Pattern Rules → Code Examples → Status → Action
 - Documentation Rules → File Structure/Links → Status → Action
+- Java Usage Guide Coverage → Java-only docs/examples → Status → Action
 
 **Plugin Remediation Priorities**:
 1. **Critical**: Page Configurator and ServiceLoader configuration
 2. **High**: @TsDependency and Angular integration  
 3. **Medium**: CRTP pattern compliance and examples
-4. **Low**: Documentation enhancements and link optimization
+4. **Low**: Documentation enhancements and link optimization (including `java-usage-guide.rules.md` updates)
 
 ---
 
@@ -243,6 +247,7 @@ Use this prompt to perform a full repository health check for the AG Charts Ente
 - [ ] CRTP fluent API pattern compliance verified
 - [ ] AG Charts Enterprise integration validated
 - [ ] Plugin documentation completeness verified
+- [ ] `java-usage-guide.rules.md` aligned with implementation and linked
 - [ ] Link integrity across plugin rules confirmed
 - [ ] Maven/build configuration alignment checked
 - [ ] Examples and testing coverage assessed
@@ -277,6 +282,7 @@ Use this prompt to perform a full repository health check for the AG Charts Ente
 **Plugin Documentation**:
 - Plugin README: `./README.md`
 - Plugin Rules Index: `./rules/generative/frontend/jwebmp/agcharts-enterprise/README.md`
+- Java Usage Guide: `./rules/generative/frontend/jwebmp/agcharts-enterprise/java-usage-guide.rules.md`
 - Registration Status: `./PROMPT_REGISTER_JWEBMP_PLUGIN.md`
 
 **Key Plugin Files**:
