@@ -115,7 +115,7 @@ public abstract class AgGauge<J extends AgGauge<J>> extends DivSimple<J> impleme
     /**
      * Receives initial options over WebSocket and returns them to the client.
      */
-    private static class InitialOptionsReceiver extends WebSocketAbstractCallReceiver
+    private static class InitialOptionsReceiver extends WebSocketAbstractCallReceiver<InitialOptionsReceiver>
     {
         private String listenerName;
         private Class<? extends AgGauge> actionClass;
@@ -134,31 +134,32 @@ public abstract class AgGauge<J extends AgGauge<J>> extends DivSimple<J> impleme
         @Override
         public io.smallrye.mutiny.Uni<AjaxResponse<?>> action(AjaxCall<?> call, AjaxResponse<?> response)
         {
-            return io.smallrye.mutiny.Uni.createFrom().item(() -> {
-                try
-                {
-                    actionClass = (Class<? extends AgGauge>) Class.forName(call.getClassName());
-                    Object ln = call.getUnknownFields() != null ? call.getUnknownFields()
-                                                                      .get("listenerName") : null;
-                    if (ln != null)
-                    {
-                        listenerName = ln.toString();
-                    }
-                }
-                catch (ClassNotFoundException e)
-                {
-                    e.printStackTrace();
-                }
+            return io.smallrye.mutiny.Uni.createFrom()
+                                         .item(() -> {
+                                             try
+                                             {
+                                                 actionClass = (Class<? extends AgGauge>) Class.forName(call.getClassName());
+                                                 Object ln = call.getUnknownFields() != null ? call.getUnknownFields()
+                                                                                                   .get("listenerName") : null;
+                                                 if (ln != null)
+                                                 {
+                                                     listenerName = ln.toString();
+                                                 }
+                                             }
+                                             catch (ClassNotFoundException e)
+                                             {
+                                                 e.printStackTrace();
+                                             }
 
-                AgRadialGaugeOptions<?> initial = IGuiceContext.get(actionClass)
-                                                               .getInitialOptions();
-                if (initial == null)
-                {
-                    return null;
-                }
-                response.addDataResponse(listenerName, initial);
-                return response;
-            });
+                                             AgRadialGaugeOptions<?> initial = IGuiceContext.get(actionClass)
+                                                                                            .getInitialOptions();
+                                             if (initial == null)
+                                             {
+                                                 return null;
+                                             }
+                                             response.addDataResponse(listenerName, initial);
+                                             return response;
+                                         });
         }
     }
 }
